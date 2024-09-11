@@ -8,7 +8,7 @@ export default function Home() {
           Transform your conversation into smart AI solutions in seconds. No technical skills required.
         </p>
         <button className="home-button">
-          <img src="/phone.png" alt="Phone Icon" />
+          <img src="/phone.svg" alt="Phone Icon" />
           Let’s try Call Voice
         </button>
         {/* Tambahkan gambar PNG di bagian bawah */}
