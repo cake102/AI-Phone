@@ -1,56 +1,63 @@
 "use client";
 
 import React, { useState } from 'react';
-import UploadIcon from '../public/upload-icon.svg'; // Import SVG sebagai komponen React
+import UploadIcon from '../public/upload-icon.svg'; // Import SVG as React component
 
 const AdminPage = () => {
-    const [fileTitle, setFileTitle] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [fileList, setFileList] = useState([
-      { no: 1, title: 'Sangkuriang.pdf', date: '2024/08/28' },
-      // Add more file entries here
-    ]);
-    const [dragging, setDragging] = useState(false);
-  
-    const handleFileUpload = (files: FileList | null) => {
-      if (files) {
-        const file = files[0];
-        console.log('Selected file:', file.name);
-      }
-    };
-  
-    const handleSave = () => {
-      console.log('Saving file with title:', fileTitle);
-      // Handle save logic
-    };
-  
-    const handleOpenModal = () => {
-      setIsModalOpen(true);
-    };
-  
-    const handleCloseModal = () => {
-      setIsModalOpen(false);
-    };
-  
-    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-      event.preventDefault();
-      event.stopPropagation();
-      setDragging(false);
-      handleFileUpload(event.dataTransfer.files);
-    };
-  
-    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-      event.preventDefault();
-      event.stopPropagation();
-      setDragging(true);
-    };
-  
-    const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
-      event.preventDefault();
-      event.stopPropagation();
-      setDragging(false);
-    };
-  
+  const [fileTitle, setFileTitle] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [fileList, setFileList] = useState([
+    { no: 1, title: 'Sangkuriang.pdf', date: '2024/08/28' },
+    // Add more file entries here
+  ]);
+  const [dragging, setDragging] = useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+
+  const handleFileUpload = (files: FileList | null) => {
+    if (files) {
+      const file = files[0];
+      console.log('Selected file:', file.name);
+    }
+  };
+
+  const handleSave = () => {
+    console.log('Saving file with title:', fileTitle);
+    // Handle save logic
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setDragging(false);
+    handleFileUpload(event.dataTransfer.files);
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setDragging(true);
+  };
+
+  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setDragging(false);
+  };
+
+  const openFileDialog = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
     <div className="admin-form-container bg-admin p-6">
       <div className="form-container bg-white p-4 rounded shadow-md">
@@ -73,13 +80,6 @@ const AdminPage = () => {
           </p>
 
           <div className="flex items-center space-x-2">
-            <input
-              type="file"
-              id="upload-file"
-              accept=".pdf,.csv,.docx"
-              onChange={(e) => handleFileUpload(e.target.files)}
-              className="hidden"
-            />
             <label htmlFor="upload-file" className="upload-btn flex items-center cursor-pointer p-2 rounded" onClick={handleOpenModal}>
               <UploadIcon className="admin-upload-icon w-6 h-6 mr-2" />
               <span>Add File</span>
@@ -136,11 +136,15 @@ const AdminPage = () => {
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
             >
-              <p>Drag and drop or click to upload document</p>
+              <p>Drag and drop your file here or</p>
+              <button onClick={openFileDialog} className="modal-upload-button">
+                Click to select file
+              </button>
               <input
                 type="file"
-                className="modal-file-input"
+                ref={fileInputRef}
                 onChange={(e) => handleFileUpload(e.target.files)}
+                className="hidden"
               />
             </div>
             <button className="modal-save" onClick={handleSave}>Save</button>
