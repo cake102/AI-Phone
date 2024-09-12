@@ -126,7 +126,7 @@ const AdminPage = () => {
               className="modal-input"
             />
             <h3 className="modal-description">Description</h3>
-            <textarea
+            <input
               placeholder="Enter description here"
               className="modal-textarea"
             />

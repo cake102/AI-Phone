@@ -396,9 +396,9 @@ table th {
   background-color: #3C3C3C;
   padding: 20px;
   border-radius: 10px;
-  width: 50%; /* Sesuaikan lebar modal */
+  width: 30%; /* Sesuaikan lebar modal */
   height: 70vh; /* Mengatur tinggi modal menjadi 70% dari tinggi viewport */
-  max-height: 90vh; /* Batasi tinggi maksimal modal */
+  max-height: 60vh; /* Batasi tinggi maksimal modal */
   overflow-y: auto; /* Tambahkan scrollbar jika konten melebihi tinggi modal */
   position: relative;
   z-index: 1001;
@@ -447,6 +447,7 @@ table th {
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
+  align-self: center;
 }
 
 .modal-upload-button:hover {
@@ -465,6 +466,7 @@ table th {
   border-radius: 4px;
   cursor: pointer;
   margin-top: 20px;
+  align-self: center;
 }
 
 .modal-save:hover {
